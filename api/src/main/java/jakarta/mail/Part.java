@@ -88,10 +88,32 @@ public interface Part {
      * user interface to give the user a rough idea of the size
      * of this part.
      *
+     * @deprecated Since Jakarta Mail 2.2.0. Use {@link #getSizeLong()}
+     * instead.
      * @return size of content in bytes
      * @throws MessagingException for failures
      */
+    @Deprecated(since = "2.2.0", forRemoval = true)
     int getSize() throws MessagingException;
+
+    /**
+     * Return the size of the content of this part in bytes.
+     * Returns -1 if the size cannot be determined. <p>
+     *
+     * Note that the size may not be an exact measure of the content
+     * size and may or may not account for any transfer encoding
+     * of the content. The size is appropriate for display in a
+     * user interface to give the user a rough idea of the size
+     * of this part.
+     *
+     * @return size of content in bytes, or -1 if unknown
+     * @throws MessagingException for failures
+     * @since Jakarta Mail 2.2.0
+     */
+    @SuppressWarnings("deprecation")
+    default long getSizeLong() throws MessagingException {
+        return getSize();
+    }
 
     /**
      * Return the number of lines in the content of this part.
